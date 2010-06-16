@@ -53,7 +53,7 @@ public class YouTubeStatisticsServiceImpl extends RemoteServiceServlet implement
       response.setVideoDurations(StatisticsUtil.bucketData(8, durations,
           new StatisticsUtil.DurationFormatter()));
 
-      PublicationDatesExtractor publicationDatesExtractor = new PublicationDatesExtractor(service);
+      PublicationDatesExtractor publicationDatesExtractor = new PublicationDatesExtractor();
       Date[] dates = publicationDatesExtractor.extractPublicationDates(videoFeed);
       response.setPublicationDates(StatisticsUtil.bucketTimeData(20, dates));
     } catch (MalformedURLException e) {
