@@ -1,0 +1,11 @@
+<!-- Indices written at Tue, 15 Jun 2010 13:46:58 UTC -->
+
+<datastore-indexes>
+
+    <!-- Used 1 time in query history -->
+    <datastore-index kind="RecentQuery" ancestor="false" source="auto">
+        <property name="jSessionId" direction="asc"/>
+        <property name="date" direction="desc"/>
+    </datastore-index>
+
+</datastore-indexes>
