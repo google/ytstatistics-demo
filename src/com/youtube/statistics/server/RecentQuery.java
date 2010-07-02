@@ -16,29 +16,20 @@ package com.youtube.statistics.server;
 
 import java.util.Date;
 
-import javax.jdo.annotations.IdentityType;
-import javax.jdo.annotations.PersistenceCapable;
-import javax.jdo.annotations.Persistent;
-import javax.jdo.annotations.PrimaryKey;
-
 /**
  * Stores a recent query in the data store.
  *
  * @author martinstrauss@google.com (Martin Strauss)
+ * 
+ * @TODO Annotate this class for the datastore.
  */
-@PersistenceCapable(identityType = IdentityType.APPLICATION)
 public class RecentQuery {
-  @PrimaryKey
-  @Persistent
   private String key;
 
-  @Persistent
   private String jSessionId;
 
-  @Persistent
   private String query;
 
-  @Persistent
   private Date date;
 
   public RecentQuery(String jSessionId, String query) {

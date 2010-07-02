@@ -14,10 +14,7 @@
 
 package com.youtube.statistics.client;
 
-import com.google.gwt.visualization.client.AbstractDataTable;
-import com.google.gwt.visualization.client.DataTable;
 import com.google.gwt.visualization.client.LegendPosition;
-import com.google.gwt.visualization.client.AbstractDataTable.ColumnType;
 import com.google.gwt.visualization.client.visualizations.ColumnChart;
 import com.google.gwt.visualization.client.visualizations.Visualization;
 
@@ -38,12 +35,13 @@ public class VideoDurations implements YouTubeChart<String, Integer> {
 
   @Override
   public Visualization<?> drawChart(List<LabelledData<String, Integer>> data) {
-    ColumnChart chart = new ColumnChart(createLabelledTable(data), createDurationsOptions());
-    chart.setWidth(WIDTH + "px");
-    chart.getElement().getStyle().setProperty("display", "inline-block");
-    return chart;
+    // TODO: implement.
+    return null;
   }
 
+  /**
+   * You can use these options for the chart.
+   */
   private ColumnChart.Options createDurationsOptions() {
     ColumnChart.Options options = ColumnChart.Options.create();
     options.setWidth(WIDTH);
@@ -54,19 +52,5 @@ public class VideoDurations implements YouTubeChart<String, Integer> {
     options.setTitleX(MSG_DURATION);
     options.setTitleY(MSG_VIDEOS);
     return options;
-  }
-
-  private AbstractDataTable createLabelledTable(List<LabelledData<String, Integer>> data) {
-    DataTable table = DataTable.create();
-    table.addColumn(ColumnType.STRING, MSG_DURATION);
-    table.addColumn(ColumnType.NUMBER, MSG_VIDEOS);
-    table.addRows(data.size());
-    int row = 0;
-    for (LabelledData<String, Integer> entry : data) {
-      table.setValue(row, 0, entry.getLabel());
-      table.setValue(row, 1, entry.getValue());
-      ++row;
-    }
-    return table;
   }
 }
