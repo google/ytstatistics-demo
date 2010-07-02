@@ -26,12 +26,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Date;
-import java.util.List;
 import java.util.logging.Logger;
-
-import javax.jdo.JDOObjectNotFoundException;
-import javax.jdo.PersistenceManager;
-import javax.jdo.Query;
 
 /**
  * The server side implementation of the RPC service.
@@ -64,10 +59,7 @@ public class YouTubeStatisticsServiceImpl extends RemoteServiceServlet implement
         return response;
       }
 
-      DurationExtractor durationExtractor = new DurationExtractor();
-      int[] durations = durationExtractor.extractDurations(videoFeed);
-      response.setVideoDurations(StatisticsUtil.bucketData(8, durations,
-          new StatisticsUtil.DurationFormatter()));
+      // TODO: implement video durations.
 
       PublicationDatesExtractor publicationDatesExtractor = new PublicationDatesExtractor(service);
       Date[] dates = publicationDatesExtractor.extractPublicationDates(videoFeed);
@@ -85,63 +77,13 @@ public class YouTubeStatisticsServiceImpl extends RemoteServiceServlet implement
   }
 
   public String[] getRecentQueries() {
-    Date start = new Date();
-    String jSessionId = this.getThreadLocalRequest().getSession().getId();
-    List<RecentQuery> results = lookupAllQueries(jSessionId);
-    String[] response = new String[results.size()];
-    for (int i = 0; i < results.size(); ++i) {
-      response[i] = results.get(i).getQuery();
-    }
-    log.info("YouTubeStatisticsServiceImpl>getRecentQueries(), time: "
-        + (new Date().getTime() - start.getTime()));
-    return response;
-  }
-
-  @SuppressWarnings("unchecked")
-  // JDO needs an unchecked cast.
-  private List<RecentQuery> lookupAllQueries(String jSessionId) {
-    Date start = new Date();
-    PersistenceManager pm = PMF.get().getPersistenceManager();
-    Query query = pm.newQuery(RecentQuery.class);
-    query.setFilter("jSessionId == sessionIdParam");
-    query.setOrdering("date desc");
-    query.declareParameters("String sessionIdParam");
-    log.info("YouTubeStatisticsServiceImpl>lookupAllQueries(), time: "
-        + (new Date().getTime() - start.getTime()));
-    try {
-      return (List<RecentQuery>) query.execute(jSessionId);
-    } finally {
-      query.closeAll();
-    }
+    // TODO: implement looking up recent queries.
+    return new String[0];
   }
 
   private void storeRecentQuery(String query) {
     Date start = new Date();
     String jSessionId = this.getThreadLocalRequest().getSession().getId();
-    PersistenceManager pm = PMF.get().getPersistenceManager();
-    RecentQuery recent;
-    try {
-      recent = lookupSingleQuery(pm, jSessionId, query);
-      if (recent != null) {
-        recent.updateDate();
-      } else {
-        recent = new RecentQuery(jSessionId, query);
-        pm.makePersistent(recent);
-      }
-    } catch (JDOObjectNotFoundException e) {
-      recent = new RecentQuery(jSessionId, query);
-      pm.makePersistent(recent);
-    } finally {
-      pm.close();
-    }
-    log.info("YouTubeStatisticsServiceImpl>storeRecentQuery(), time: "
-        + (new Date().getTime() - start.getTime()));
-  }
-
-  @SuppressWarnings("unchecked")
-  // JDO needs an unchecked cast.
-  private RecentQuery lookupSingleQuery(PersistenceManager pm, String jSessionId, String query) {
-    String key = RecentQuery.generateKey(jSessionId, query);
-    return pm.getObjectById(RecentQuery.class, key);
+    // TODO: implement storing recent queries.
   }
 }
