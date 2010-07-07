@@ -24,9 +24,20 @@ import java.util.List;
  * @author martinstrauss@google.com (Martin Strauss)
  */
 public class StatisticsResponse implements Serializable {
-  
-  // TODO: add code to store video durations.
-  
+  private List<LabelledData<String, Integer>> videoDurations;
+
+  public boolean hasVideoDurations() {
+    return videoDurations != null && !videoDurations.isEmpty();
+  }
+
+  public List<LabelledData<String, Integer>> getVideoDurations() {
+    return videoDurations;
+  }
+
+  public void setVideoDurations(List<LabelledData<String, Integer>> videoDurations) {
+    this.videoDurations = videoDurations;
+  }
+
   private List<LabelledData<Date, Integer>> publicationDates;
 
   public boolean hasPublicationDates() {
@@ -42,7 +53,6 @@ public class StatisticsResponse implements Serializable {
   }
 
   public boolean isEmpty() {
-    // TODO: take video durations into consideration.
-    return publicationDates.isEmpty();
+    return videoDurations.isEmpty() && publicationDates.isEmpty();
   }
 }

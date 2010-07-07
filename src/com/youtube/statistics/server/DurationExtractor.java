@@ -53,7 +53,6 @@ public class DurationExtractor {
     Date start = new Date();
     int duration = 0;
     YouTubeMediaGroup mediaGroup = videoEntry.getMediaGroup();
-    // TODO(martinstrauss): is this logic logical?
     for (YouTubeMediaContent mediaContent : mediaGroup.getYouTubeContents()) {
       duration += mediaContent.getDuration();
     }
