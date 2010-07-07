@@ -183,7 +183,9 @@ public class YtStatistics implements EntryPoint {
           return;
         }
         resultsPanel.clear();
-        // TODO: draw video durations.
+        if (result.hasVideoDurations()) {
+          drawDurationsGraph(resultsPanel, result.getVideoDurations());
+        }
         if (result.hasPublicationDates()) {
           drawCommentsTimeline(resultsPanel, result.getPublicationDates());
         }
