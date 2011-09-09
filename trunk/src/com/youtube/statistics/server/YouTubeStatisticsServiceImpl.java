@@ -69,7 +69,7 @@ public class YouTubeStatisticsServiceImpl extends RemoteServiceServlet implement
       response.setVideoDurations(StatisticsUtil.bucketData(8, durations,
           new StatisticsUtil.DurationFormatter()));
 
-      PublicationDatesExtractor publicationDatesExtractor = new PublicationDatesExtractor(service);
+      PublicationDatesExtractor publicationDatesExtractor = new PublicationDatesExtractor();
       Date[] dates = publicationDatesExtractor.extractPublicationDates(videoFeed);
       response.setPublicationDates(StatisticsUtil.bucketTimeData(20, dates));
     } catch (MalformedURLException e) {
@@ -138,8 +138,6 @@ public class YouTubeStatisticsServiceImpl extends RemoteServiceServlet implement
         + (new Date().getTime() - start.getTime()));
   }
 
-  @SuppressWarnings("unchecked")
-  // JDO needs an unchecked cast.
   private RecentQuery lookupSingleQuery(PersistenceManager pm, String jSessionId, String query) {
     String key = RecentQuery.generateKey(jSessionId, query);
     return pm.getObjectById(RecentQuery.class, key);
