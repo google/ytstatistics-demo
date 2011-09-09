@@ -14,15 +14,14 @@
 
 package com.youtube.statistics.server;
 
-import com.google.gdata.client.youtube.YouTubeService;
-import com.google.gdata.data.DateTime;
-import com.google.gdata.data.youtube.VideoEntry;
-import com.google.gdata.data.youtube.VideoFeed;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
+
+import com.google.gdata.data.DateTime;
+import com.google.gdata.data.youtube.VideoEntry;
+import com.google.gdata.data.youtube.VideoFeed;
 
 /**
  * Gets the date the videos from a YouTube video feed were published.
@@ -31,12 +30,6 @@ import java.util.logging.Logger;
  */
 public class PublicationDatesExtractor {
   private static final Logger log = Logger.getLogger(PublicationDatesExtractor.class.getName());
-
-  private YouTubeService service;
-
-  public PublicationDatesExtractor(YouTubeService service) {
-    this.service = service;
-  }
 
   /**
    * Extracts the dates the videos in a YouTube video feed were published.

@@ -24,6 +24,9 @@ import java.util.List;
  * @author martinstrauss@google.com (Martin Strauss)
  */
 public class StatisticsResponse implements Serializable {
+
+  static final long serialVersionUID = 1;
+
   private List<LabelledData<String, Integer>> videoDurations;
 
   public boolean hasVideoDurations() {
